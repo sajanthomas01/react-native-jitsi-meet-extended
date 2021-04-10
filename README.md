@@ -1,5 +1,7 @@
 # react-native-jitsi-meet-extended
 
+### Don't use it for now , under testing 
+
 JItsi Meet wrapper for react-native.
 This package was made as the react-native-jitsi-meet is kind of outdated and no one is releasing any new version of it with new jitsi meet sdk
 
@@ -17,6 +19,85 @@ yarn add react-native-jitsi-meet-extended
 
 ## Note
 At the moment this package only works with **Android** as I don't own a Mac to develop and test it for **IOS**, Hope to see some community support for developing it and also one of my friend will soon start looking into the IOS part. Also, there may be some bugs and issues in the java code, it would be great if some super devs from the community can verify and correct them :) + there are issues with TS as I'm not that much into typescript.
+
+## Android setup
+
+1) In android/build.gradle, add the following code
+```
+allprojects {
+    repositories {
+        mavenLocal()
+        maven {
+            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+            url("$rootDir/../node_modules/react-native/android")
+        }
+        maven {
+            // Android JSC is installed from npm
+            url("$rootDir/../node_modules/jsc-android/dist")
+        }
+
+        google()
+        jcenter()
+        maven { // <---- Add this block
+            url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
+        }
+        maven { url 'https://www.jitpack.io' }
+    }
+}
+```
+2) Set minimum SDK level to 24
+```
+buildscript {
+    ext {
+        buildToolsVersion = "29.0.3"
+        minSdkVersion = 24 // <-- this line
+        compileSdkVersion = 29
+        targetSdkVersion = 29
+        ndkVersion = "20.1.5948944"
+    }
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:4.1.0")
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+```
+3) Remove allow back up from Androidmanifest.xml
+
+Checking on how this can be fixed but for now, remove it from xml
+```
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.sdktest">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+      android:name=".MainApplication"
+      android:label="@string/app_name"
+      android:icon="@mipmap/ic_launcher"
+      android:roundIcon="@mipmap/ic_launcher_round"
+      android:allowBackup="false" <-- this line
+      android:theme="@style/AppTheme">
+      <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+        android:launchMode="singleTask"
+        android:windowSoftInputMode="adjustResize">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+      </activity>
+    </application>
+</manifest>
+
+```
+
 
 ## Usage
 
