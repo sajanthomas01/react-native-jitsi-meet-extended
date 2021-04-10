@@ -1,9 +1,6 @@
-import { NativeModules } from 'react-native';
-
-type JitsiMeetExtendedType = {
-  multiply(a: number, b: number): Promise<number>;
-};
+import { NativeModules, requireNativeComponent } from 'react-native';
 
 const { JitsiMeetExtended } = NativeModules;
+const JitsiMeetView = requireNativeComponent("JitsiView");
 
-export default JitsiMeetExtended as JitsiMeetExtendedType;
+export  { JitsiMeetExtended, JitsiMeetView};

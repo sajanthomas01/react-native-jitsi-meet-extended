@@ -21,7 +21,7 @@ android {
     compileSdkVersion safeExtGet('JitsiMeetExtended_compileSdkVersion', 29)
     buildToolsVersion safeExtGet('JitsiMeetExtended_buildToolsVersion', '29.0.2')
     defaultConfig {
-        minSdkVersion safeExtGet('JitsiMeetExtended_minSdkVersion', 16)
+        minSdkVersion safeExtGet('JitsiMeetExtended_minSdkVersion', 24)
         targetSdkVersion safeExtGet('JitsiMeetExtended_targetSdkVersion', 29)
         versionCode 1
         versionName "1.0"
@@ -43,11 +43,16 @@ android {
 }
 
 repositories {
-    mavenLocal()
+    // mavenLocal()
+    maven {
+        url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
+    }
     maven {
         // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
         url("$rootDir/../node_modules/react-native/android")
     }
+    mavenCentral()
+
     google()
     jcenter()
 }
@@ -55,4 +60,6 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation ('org.jitsi.react:jitsi-meet-sdk:3.3.0') { transitive = true }
+
 }

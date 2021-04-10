@@ -1,7 +1,7 @@
 {
   "name": "react-native-jitsi-meet-extended",
   "version": "0.1.0",
-  "description": "JItsi Meet wrapper for react native",
+  "description": "Jitsi Meet wrapper for react native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -64,7 +64,7 @@
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-builder-bob": "^0.18.1",
-    "release-it": "^14.2.2",
+    "release-it": "^14.6.0",
     "typescript": "^4.1.3"
   },
   "peerDependencies": {
