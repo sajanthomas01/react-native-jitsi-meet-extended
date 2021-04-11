@@ -1,6 +1,6 @@
 # react-native-jitsi-meet-extended
 
-### Don't use it for now , under testing 
+### Dont use it for now , under testing 
 
 JItsi Meet wrapper for react-native.
 This package was made as the react-native-jitsi-meet is kind of outdated and no one is releasing any new version of it with new jitsi meet sdk
@@ -21,6 +21,35 @@ yarn add react-native-jitsi-meet-extended
 At the moment this package only works with **Android** as I don't own a Mac to develop and test it for **IOS**, Hope to see some community support for developing it and also one of my friend will soon start looking into the IOS part. Also, there may be some bugs and issues in the java code, it would be great if some super devs from the community can verify and correct them :) + there are issues with TS as I'm not that much into typescript.
 
 ## Android setup
+
+### important
+There seems to be an issue with latest react-native with jitsi sdk, as buttons are unresponsive, so until the issue is sorted out it is advised to use the following version tag from jitsi team, in package.json change the version to this tag
+
+```
+   {
+  "name": "react-native-jitsi-meet-extended-example",
+  "description": "Example app for react-native-jitsi-meet-extended",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start"
+  },
+  "dependencies": {
+    "react": "17.0.2",
+    "react-native": "github:jitsi/react-native#891986ec5ecaef65d1c8a7fe472f86cf84fe7551" <-- this line
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/runtime": "^7.12.5",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "metro-react-native-babel-preset": "^0.64.0"
+  }
+}
+
+
+```
 
 1) In android/build.gradle, add the following code
 ```
