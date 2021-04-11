@@ -36,6 +36,7 @@ export default function App() {
 
   function conferenceTerminated(nativeEvent: any) {
     console.log(nativeEvent)
+    setShowMeet(false);
   }
 
   return (

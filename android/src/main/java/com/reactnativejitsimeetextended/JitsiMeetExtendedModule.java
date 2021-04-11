@@ -241,13 +241,19 @@ public class JitsiMeetExtendedModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void leaveMeet() {
-      if(jitsiMeetViewInterface.getJitsiMeetView() != null) {
-        // need to recheck
-        Intent hangupBroadcastIntent = BroadcastIntentHelper.buildHangUpIntent();
-        LocalBroadcastManager.getInstance(jitsiMeetViewInterface.getJitsiMeetView().getContext()).sendBroadcast(hangupBroadcastIntent);
-        jitsiMeetViewInterface.getJitsiMeetView().leave();
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+
+        if (jitsiMeetViewInterface.getJitsiMeetView() != null) {
+          // need to recheck
+          Intent hangupBroadcastIntent = BroadcastIntentHelper.buildHangUpIntent();
+          LocalBroadcastManager.getInstance(jitsiMeetViewInterface.getJitsiMeetView().getContext()).sendBroadcast(hangupBroadcastIntent);
+          jitsiMeetViewInterface.getJitsiMeetView().leave();
 //        jitsiMeetViewInterface.getJitsiMeetView().dispose();
+        }
       }
+    });
   }
 
 
