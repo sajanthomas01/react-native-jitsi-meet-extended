@@ -1,8 +1,6 @@
 # react-native-jitsi-meet-extended
 
-### Dont use it for now , under testing 
-
-JItsi Meet wrapper for react-native.
+Jitsi Meet wrapper for react-native.
 This package was made as the react-native-jitsi-meet is kind of outdated and no one is releasing any new version of it with new jitsi meet sdk
 
 
@@ -23,7 +21,7 @@ At the moment this package only works with **Android** as I don't own a Mac to d
 ## Android setup
 
 ### important
-There seems to be an issue with latest react-native with jitsi sdk, as buttons are unresponsive, so until the issue is sorted out it is advised to use the following version tag from jitsi team, in package.json change the version to this tag
+There seems to be an issue with latest react-native version 0.64 with jitsi sdk, as buttons are unresponsive  and other bugs, so until the issue is sorted out it is advised to use the 0.63
 
 ```
    {
@@ -38,7 +36,7 @@ There seems to be an issue with latest react-native with jitsi sdk, as buttons a
   },
   "dependencies": {
     "react": "17.0.2",
-    "react-native": "github:jitsi/react-native#891986ec5ecaef65d1c8a7fe472f86cf84fe7551" <-- this line
+    "react-native": "0.63.4" <-- this line
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -56,6 +54,10 @@ There seems to be an issue with latest react-native with jitsi sdk, as buttons a
 allprojects {
     repositories {
         mavenLocal()
+        mavenCentral()
+         maven { // <---- Add this block
+            url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
+        }
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url("$rootDir/../node_modules/react-native/android")
@@ -67,9 +69,6 @@ allprojects {
 
         google()
         jcenter()
-        maven { // <---- Add this block
-            url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
-        }
         maven { url 'https://www.jitpack.io' }
     }
 }
