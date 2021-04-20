@@ -22,9 +22,10 @@ buildscript {
 allprojects {
     repositories {
         mavenLocal()
-          mavenCentral()
+        mavenCentral()
         maven {
-              url "https://github.com/sajanthomas01/jitsi-maven-artifact/raw/master/release"
+           url "https://github.com/sajanthomas01/jitsi-maven-artifact/raw/master/release"
+              // url "https://github.com/sajanthomas01/jitsi-maven-artifact/raw/master/release"
           }
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm

@@ -1,65 +1,51 @@
 buildscript {
-    if (project == rootProject) {
-        repositories {
-            google()
-            jcenter()
-        }
+  repositories {
+    google()
+    jcenter()
+  }
 
-        dependencies {
-            classpath 'com.android.tools.build:gradle:3.5.3'
-        }
-    }
+  dependencies {
+      classpath 'com.android.tools.build:gradle:3.5.3'
+  }
 }
 
 apply plugin: 'com.android.library'
 
-def safeExtGet(prop, fallback) {
-    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-}
+def DEFAULT_COMPILE_SDK_VERSION = 29
+def DEFAULT_BUILD_TOOLS_VERSION = "29.0.2"
+def DEFAULT_TARGET_SDK_VERSION  = 29
+def DEFAULT_MIN_SDK_VERSION     = 24
 
 android {
-    compileSdkVersion safeExtGet('JitsiMeetExtended_compileSdkVersion', 29)
-    buildToolsVersion safeExtGet('JitsiMeetExtended_buildToolsVersion', '29.0.2')
-    defaultConfig {
-        minSdkVersion safeExtGet('JitsiMeetExtended_minSdkVersion', 24)
-        targetSdkVersion safeExtGet('JitsiMeetExtended_targetSdkVersion', 29)
-        versionCode 1
-        versionName "1.0"
+  compileSdkVersion rootProject.hasProperty('compileSdkVersion') ? rootProject.compileSdkVersion : DEFAULT_COMPILE_SDK_VERSION
+  buildToolsVersion rootProject.hasProperty('buildToolsVersion') ? rootProject.buildToolsVersion : DEFAULT_BUILD_TOOLS_VERSION
 
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-    }
-    lintOptions {
-        disable 'GradleCompatible'
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+  defaultConfig {
+    minSdkVersion rootProject.hasProperty('minSdkVersion') ? rootProject.minSdkVersion : DEFAULT_MIN_SDK_VERSION
+    targetSdkVersion rootProject.hasProperty('targetSdkVersion') ? rootProject.targetSdkVersion : DEFAULT_TARGET_SDK_VERSION
+    versionCode 2
+    versionName "1.1"
+  }
+  lintOptions {
+    abortOnError false
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 repositories {
-    // mavenLocal()
-    maven {
-        url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
-    }
-    maven {
-        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
-        url("$rootDir/../node_modules/react-native/android")
-    }
-    mavenCentral()
-
-    google()
-    jcenter()
+  maven {
+      url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
+  }
+  google()
+  mavenCentral()
+  jcenter()
 }
 
 dependencies {
-    //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation ('org.jitsi.react:jitsi-meet-sdk:3.3.0') { transitive = true }
-
+    implementation ('org.jitsi.react:jitsi-meet-sdk:3.3.0') {
+      transitive = true
+    }
 }
