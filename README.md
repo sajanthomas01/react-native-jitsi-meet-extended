@@ -125,7 +125,40 @@ Checking on how this can be fixed but for now, remove it from xml
 </manifest>
 
 ```
+4) In android/app/src/main/java/com/xxx/MainApplication.java add/replace the following methods:
 
+```
+import androidx.annotation.Nullable; // <--- Add this line if not already existing
+
+public class MainApplication extends Application implements ReactApplication {
+
+  private final ReactNativeHost mReactNativeHost =
+      new ReactNativeHost(this) {
+        @Override
+        public boolean getUseDeveloperSupport() {
+          return BuildConfig.DEBUG;
+        }
+
+        @Override
+        protected List<ReactPackage> getPackages() {
+          @SuppressWarnings("UnnecessaryLocalVariable")
+          List<ReactPackage> packages = new PackageList(this).getPackages();
+          // Packages that cannot be autolinked yet can be added manually here, for example:
+          // packages.add(new MyReactNativePackage());
+          return packages;
+        }
+
+        @Override
+        protected String getJSMainModuleName() {
+          return "index";
+        }
+
+        @Override   // <-- Add this method if does not exist
+        protected @Nullable String getBundleAssetName() {
+          return "app.bundle";
+        }
+      };
+```
 
 ## Usage
 
